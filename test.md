@@ -18,6 +18,7 @@ struct node *create(struct node *slist, int n)
         newnode = (struct node *)malloc(sizeof(struct node));
         printf("Enter data part");
         scanf("%d", &newnode->data);
+        newnode->next = NULL:
         if (slist == NULL)
         {
             slist = temp = newnode;
