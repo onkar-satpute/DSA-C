@@ -1,3 +1,5 @@
+# Stack all operations
+``` c
 #include <stdio.h>
 #include <stdlib.h>
 struct node
@@ -222,3 +224,5 @@ int main()
     printf("Exited");
     return 0;
 }
+
+```

@@ -1,3 +1,6 @@
+# testing of queue
+```c
+
 #include <stdio.h>
 #define max 5
 
@@ -108,3 +111,4 @@ int main()
     } while (ch < 7);
     return 0;
 }
+```
