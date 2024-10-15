@@ -148,13 +148,25 @@ struct node *deleteinter(struct node *slist)
     return slist;
 
 }
+
+int count(struct node * slist){
+    int cnt=0;
+    struct node * temp;
+    temp = slist;
+    while(temp!=NULL){
+        cnt++;
+        temp = temp->next;
+    }
+    return cnt;
+}
+
 int main()
 {
-    int ch, i, n;
+    int ch, i, n, result;
     struct node *slist = NULL;
     do
     {
-        printf("Enter your choice: \n1.create\n2.Display\n3.Exit\n4.Insert at End\n5.Insert at Begin\n6.Insert At Intermidiate\n7.Delete begining\n8.Delete from end\n9.Delete from Intermediate");
+        printf("Enter your choice: \n1.create\n2.Display\n3.Exit\n4.Insert at End\n5.Insert at Begin\n6.Insert At Intermidiate\n7.Delete begining\n8.Delete from end\n9.Delete from Intermediate\n10.Count the nodes of your linked list");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -197,11 +209,16 @@ int main()
             slist = deleteinter(slist);
             break;
 
+        case 10:
+            result = count(slist);
+            printf("%d nodes pressent in the list..", result);
+            break;
+
         default:
             printf("Enter Valid choice\n \n ");
             break;
         }
-    } while (ch < 10);
+    } while (ch < 11);
     printf("Exited");
     return 0;
 }
