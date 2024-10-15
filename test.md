@@ -1,4 +1,4 @@
-# Stack all operations
+# Linked list all operations
 ``` c
 #include <stdio.h>
 #include <stdlib.h>
