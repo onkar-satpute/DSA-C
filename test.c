@@ -29,27 +29,27 @@ struct node *create(struct node *slist, int n)
     return slist;
 }
 
-void display(struct node * slist){
-    struct node * temp;
+void display(struct node *slist)
+{
+    struct node *temp;
     temp = slist;
     if (slist == NULL)
     {
         printf("The linked list is empty..\n\n");
     }
-    else{
+    else
+    {
         printf("The linked list is: \n");
-        while (temp!=NULL)
+        while (temp != NULL)
         {
             printf("%d \t", temp->data);
-            temp=temp->next;
-
+            temp = temp->next;
         }
-        
     }
-    
 }
 
-struct node * insertAtEnd(struct node * slist){
+struct node *insertAtEnd(struct node *slist)
+{
     struct node *temp, *newnode;
     int n;
     newnode = ((struct node *)malloc(sizeof(struct node)));
@@ -57,79 +57,113 @@ struct node * insertAtEnd(struct node * slist){
     scanf("%d", &n);
     newnode->data = n;
     newnode->next = NULL;
-    
-    if (slist==NULL)
+
+    if (slist == NULL)
     {
         slist = newnode;
     }
-    else{
+    else
+    {
         temp = slist;
-        while(temp->next!=NULL)
+        while (temp->next != NULL)
         {
             temp = temp->next;
         }
-       temp->next = newnode;
-        
+        temp->next = newnode;
     }
     return slist;
-    
 }
-struct node * insertAtBeg(struct node * slist){
+struct node *insertAtBeg(struct node *slist)
+{
     struct node *newnode;
     int n;
     printf("Enter the data for insert: ");
     scanf("%d", &n);
     newnode = ((struct node *)malloc(sizeof(struct node)));
     newnode->data = n;
-    if(slist==NULL)
-    newnode->next = NULL;
+    if (slist == NULL)
+        newnode->next = NULL;
     else
-    newnode->next = slist;
+        newnode->next = slist;
     slist = newnode;
     return slist;
 }
 
-// struct node * insertAtInter(struct node * slist){
-//     struct node * newnode, *temp, *temp1;
-//     int i, n, pos;
-//     newnode = ((struct node *)malloc(sizeof(struct node)));
-//     printf("On which position you have to insert the value: ");
-//     scanf("%d", &pos);
-//      if(pos==1){
-//     slist = insertAtBeg(slist);
-//     return slist;
-//     }
-       
-//     else{
-//         printf("Enter the value to insert at position %d: ", pos);
-//         scanf("%d", &n);
-//         newnode->data = n;
+struct node *insertAtInter(struct node *slist)
+{
+    int i, pos;
+    struct node *temp, *temp1, *newnode;
+    printf("Enter the position : ");
+    scanf("%d", &pos);
+    newnode = ((struct node *)malloc(sizeof(struct node)));
+    printf("Enter the data part: ");
+    scanf("%d", &newnode->data);
+    newnode->next = NULL;
+    temp = slist;
+    for (i = 1; i < pos - 1; i++)
+        temp = temp->next;
+    temp1 = temp->next;
+    newnode->next = temp1;
+    temp->next = newnode;
+    return slist;
+}
 
-//         temp = slist;
-//         for(i=0; i<pos-1; i++){
-//             temp = temp->next;
-//         }
-//         temp1 = temp->next->next;
-//         temp->next = newnode;
-//         newnode->next = temp1;
-//     }
-//     return slist;
-// }
-int main(){
+struct node *deletebeg(struct node *slist)
+{
+    struct node *temp;
+    temp = slist;
+    slist = temp->next;
+    free(temp);
+    return slist;
+}
+
+struct node *deleteend(struct node *slist)
+{
+    struct node *temp, *temp1;
+    temp = slist;
+    while (temp->next != NULL)
+    {
+        temp1 = temp;
+        temp = temp->next;
+    }
+    temp1->next = NULL;
+    free(temp);
+    return slist;
+}
+
+struct node *deleteinter(struct node *slist)
+{
+    int pos, i;
+    struct node *temp, *temp1;
+    temp = slist;
+    printf("Enter the position you want to delete: ");
+    scanf("%d", &pos);
+    for (i = 1; i < pos - 1; i++)
+    {
+        temp = temp->next;
+    }
+    temp1 = temp->next;
+    temp->next = temp1->next;
+    free(temp1);
+    return slist;
+
+}
+int main()
+{
     int ch, i, n;
-    struct node * slist = NULL;
+    struct node *slist = NULL;
     do
     {
-        printf("Enter your choice: \n1.create\n2.Display\n3.Exit\n4.Insert at End\n5.Insert at Begin\n6.Insert At Intermidiate");
+        printf("Enter your choice: \n1.create\n2.Display\n3.Exit\n4.Insert at End\n5.Insert at Begin\n6.Insert At Intermidiate\n7.Delete begining\n8.Delete from end\n9.Delete from Intermediate");
         scanf("%d", &ch);
         switch (ch)
         {
         case 1:
             printf("Enter the number of nodes to be created: ");
             scanf("%d", &n);
-            slist = create(slist,n);
+            slist = create(slist, n);
             break;
-        
+
         case 2:
             display(slist);
             printf("\n");
@@ -139,10 +173,10 @@ int main(){
             return 0;
 
         case 4:
-            
+
             slist = insertAtEnd(slist);
             break;
-        
+
         case 5:
             slist = insertAtBeg(slist);
             break;
@@ -151,12 +185,23 @@ int main(){
             slist = insertAtInter(slist);
             break;
 
+        case 7:
+            slist = deletebeg(slist);
+            break;
+
+        case 8:
+            slist = deleteend(slist);
+            break;
+
+        case 9:
+            slist = deleteinter(slist);
+            break;
+
         default:
-            printf("Enter Valid choice");
+            printf("Enter Valid choice\n \n ");
             break;
         }
-    } while (ch<6);
+    } while (ch < 10);
+    printf("Exited");
     return 0;
 }
-
-
